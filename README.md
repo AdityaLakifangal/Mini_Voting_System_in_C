@@ -1,2 +1,2 @@
-# Mini-Voting-System
-This is my first Git Repository.
+# Mini_Voting_Syatem_in_C
+This is a simple console-based mini voting system implemented in C. The program allows users to set up a list of candidates, take votes, and determine the winner of the election.
