@@ -11,12 +11,14 @@ int main() {
     printf("Physics Project - Mini Voting System\n");
     printf("\t\tWelcome to the voting system\n");
 
-    printf("Enter the number of candidates: ");
-    scanf("%d", &total_candidates);
-    if (total_candidates < 2) {
-        printf("Invalid number of candidates. Please choose at least 2.\n");  // Exit the program with an error code
-        return 1;
-    }
+    do {
+        printf("Enter the number of candidates: ");
+        scanf("%d", &total_candidates);
+
+        if (total_candidates < 2) {
+            printf("Invalid number of candidates. Please choose at least 2.\n");  // Exit the program with an error code
+        }
+    } while (total_candidates < 2);
     
     candidate_names = (char **)malloc(total_candidates * sizeof(char *));
     if (candidate_names == NULL) {
@@ -82,9 +84,9 @@ int main() {
     for (i = 1; i <= total_candidates; i++) {
         if (votes[i] > votes[maxVotesIndex]) {
             maxVotesIndex = i;
-            tieFlag = 0;  // Reset the tie flag
+            tieFlag = 0;  
         } else if (votes[i] == votes[maxVotesIndex]) {
-            tieFlag = 1;  // There is a tie
+            tieFlag = 1; 
         }
     }
 
