@@ -6,7 +6,7 @@
 int main() {
     char **candidate_names;
     int *votes;
-    int total_candidates, total_vote, i, choice;
+    int total_candidates = 0, total_vote = 0, i, choice;
 
     printf("Physics Project - Mini Voting System\n");
     printf("\t\tWelcome to the voting system\n");
@@ -16,13 +16,13 @@ int main() {
         scanf("%d", &total_candidates);
 
         if (total_candidates < 2) {
-            printf("Invalid number of candidates. Please choose at least 2.\n");  // Exit the program with an error code
+            printf("Invalid number of candidates. Please choose at least 2.\n");
         }
     } while (total_candidates < 2);
-    
+
     candidate_names = (char **)malloc(total_candidates * sizeof(char *));
     if (candidate_names == NULL) {
-        printf("Candidate name cannnot be empty\n");
+        printf("Memory allocation error.\n");
         return 1;
     }
 
@@ -32,12 +32,12 @@ int main() {
             printf("Memory allocation error.\n");
             return 1;
         }
+
         printf("Enter the name for Candidate %d: ", i + 1);
         scanf("%s", candidate_names[i]);
     }
 
     votes = (int *)malloc((total_candidates + 1) * sizeof(int));
-
     if (votes == NULL) {
         printf("Memory allocation error.\n");
         return 1;
@@ -47,6 +47,7 @@ int main() {
         votes[i] = 0;
     }
 
+   do {
     printf("Enter the number of voters (at least %d): ", total_candidates);
     scanf("%d", &total_vote);
 
@@ -55,6 +56,7 @@ int main() {
     } else {
         printf("Thank you for providing a valid number of voters.\n");
     }
+} while (total_vote < total_candidates);
 
     printf("\nVoting has started. Enter the candidate number (1 to %d) or 0 for NOTA.\n", total_candidates);
     for (i = 1; i <= total_vote; i++) {
@@ -63,7 +65,9 @@ int main() {
             printf("Enter %d for \"%s\"\n", j + 1, candidate_names[j]);
         }
         printf("Enter 0 for NOTA\n");
+
         scanf("%d", &choice);
+
         if (choice >= 0 && choice <= total_candidates) {
             votes[choice]++;
         } else {
@@ -73,8 +77,8 @@ int main() {
     }
 
     printf("\n\t\tResult of the vote\n");
-    for (i = 0; i < total_candidates; i++) {
-        printf("%s got %d vote(s)\n", candidate_names[i], votes[i + 1]);
+    for (i = 1; i <= total_candidates; i++) {
+        printf("%s got %d vote(s)\n", candidate_names[i - 1], votes[i]);
     }
     printf("NOTA got %d vote(s)\n", votes[0]);
 
@@ -84,9 +88,9 @@ int main() {
     for (i = 1; i <= total_candidates; i++) {
         if (votes[i] > votes[maxVotesIndex]) {
             maxVotesIndex = i;
-            tieFlag = 0;  
+            tieFlag = 0;
         } else if (votes[i] == votes[maxVotesIndex]) {
-            tieFlag = 1; 
+            tieFlag = 1;
         }
     }
 
